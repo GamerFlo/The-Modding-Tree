@@ -27,11 +27,21 @@ addLayer("o", {
     layerShown(){return true},
 
     upgrades: {
+
     11: {
-    title: "Point Boost",
-    description: "Double your point gain.",
-    cost: new Decimal(1),
-    },
+        title: "Point Boost",
+        description: "Double your point gain.",
+        cost: new Decimal(1),
+        },
+    12: {
+        title: "Space Fold",
+        description: "Multiply point gain based on oxygen.",
+        cost: new Decimal(4),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.5)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
 
     },
 })
