@@ -16,6 +16,7 @@ addLayer("o", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('o', 13)) mult = mult.times(upgradeEffect('o', 13))
+        if (hasUpgrade('b', 12)) mult = mult.times(upgradeEffect('b', 12))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -49,6 +50,64 @@ addLayer("o", {
         cost: new Decimal(10),
         effect() {
             return player.points.add(1).pow(0.1)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+
+    },
+})
+
+addLayer("b", {
+    name: "booster", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "B", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#00FF80",
+    requires: new Decimal(30), // Can be a function that takes requirement increases into account
+    resource: "boosters", // Name of prestige currency
+    baseResource: "oxygen", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.3, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        if (hasUpgrade('b', 13)) mult = mult.times(upgradeEffect('b', 13))
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(2)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "b", description: "B: Reset for boosters", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+
+    upgrades: {
+
+    11: {
+        title: "Timewall?",
+        description: "Quadruple your point gain.",
+        cost: new Decimal(2),
+        },
+    12: {
+        title: "Up Your Row",
+        description: "Slightly multiply oxygen gain based on boosters.",
+        cost: new Decimal(4),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.12)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+    13: {
+        title: "Self-Synergy",
+        description: "Multiply booster gain based on boosters.",
+        cost: new Decimal(7),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.08)
         },
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
