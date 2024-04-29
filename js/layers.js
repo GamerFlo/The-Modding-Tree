@@ -15,6 +15,7 @@ addLayer("o", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('o', 13)) mult = mult.times(upgradeEffect('o', 13))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -39,6 +40,15 @@ addLayer("o", {
         cost: new Decimal(4),
         effect() {
             return player[this.layer].points.add(1).pow(0.5)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+    13: {
+        title: "Oxygen Tanks",
+        description: "Multiply oxygen gain based on points.",
+        cost: new Decimal(10),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.15)
         },
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
