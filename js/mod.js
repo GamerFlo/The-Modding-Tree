@@ -8,7 +8,7 @@ let modInfo = {
 	discordName: "",
 	discordLink: "",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	offlineLimit: 4,  // In hours
 }
 
 // Set your version in num and name
@@ -43,6 +43,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	if (hasUpgrade('o', 11)) gain = gain.times(2)
 	return gain
 }
 
