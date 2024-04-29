@@ -69,7 +69,7 @@ addLayer("b", {
     requires: new Decimal(30), // Can be a function that takes requirement increases into account
     resource: "boosters", // Name of prestige currency
     baseResource: "oxygen", // Name of resource prestige is based on
-    baseAmount() {return player.oxygen}, // Get the current amount of baseResource
+    baseAmount() {return player.[o].points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.3, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
