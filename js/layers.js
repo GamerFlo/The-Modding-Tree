@@ -16,6 +16,7 @@ addLayer("o", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('o', 13)) mult = mult.times(upgradeEffect('o', 13))
+        if (hasUpgrade('o', 23)) mult = mult.times(upgradeEffect('o', 23))
         if (hasUpgrade('b', 12)) mult = mult.times(upgradeEffect('b', 12))
         return mult
     },
@@ -50,6 +51,29 @@ addLayer("o", {
         cost: new Decimal(10),
         effect() {
             return player.points.add(1).pow(0.1)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+    21: {
+        title: "Point Boost II",
+        description: "Triple your point gain.",
+        cost: new Decimal(10),
+        },
+    22: {
+        title: "Space Fold II",
+        description: "Multiply point gain based on oxygen even more.",
+        cost: new Decimal(40),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.6)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+    23: {
+        title: "Oxygen Tanks",
+        description: "Multiply oxygen gain based on points even more.",
+        cost: new Decimal(100),
+        effect() {
+            return player.points.add(1).pow(0.17)
         },
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
