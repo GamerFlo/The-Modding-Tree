@@ -209,7 +209,7 @@ addLayer("d", {
         unlocked: false,
 		points: new Decimal(0),
     }},
-    color: "#000000",
+    color: "#303030",
     requires: new Decimal(8), // Can be a function that takes requirement increases into account
     resource: "dark matter", // Name of prestige currency
     baseResource: "planets", // Name of resource prestige is based on
