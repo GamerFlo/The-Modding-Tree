@@ -138,6 +138,15 @@ addLayer("b", {
         },
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
+    14: {
+        title: "Self-Synergy",
+        description: "Multiply point gain based on boosters.",
+        cost: new Decimal(7000),
+        effect() {
+            return player[this.layer].points.add(1).pow(0.11)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
 
     },
 })
