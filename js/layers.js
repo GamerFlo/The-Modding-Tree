@@ -188,7 +188,7 @@ addLayer("p", {
         },
         1: {
             requirementDescription: "9 planets",
-            effectDescription: "+1 Milestone.",
+            effectDescription: "Unlock the next layer.",
             done() { return player.p.points.gte(9) },
         },
 
