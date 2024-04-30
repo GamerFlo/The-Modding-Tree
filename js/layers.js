@@ -86,16 +86,16 @@ addLayer("b", {
     symbol: "B", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
-        unlocked: true,
+        unlocked: false,
 		points: new Decimal(0),
     }},
     color: "#00FF80",
-    requires: new Decimal(400), // Can be a function that takes requirement increases into account
+    requires: new Decimal(50), // Can be a function that takes requirement increases into account
     resource: "boosters", // Name of prestige currency
-    baseResource: "points", // Name of resource prestige is based on
-    baseAmount() {return player.points}, // Get the current amount of baseResource
+    baseResource: "oxygen", // Name of resource prestige is based on
+    baseAmount() {return player.o.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.1, // Prestige currency exponent
+    exponent: 0.4, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('b', 13)) mult = mult.times(upgradeEffect('b', 13))
@@ -134,6 +134,62 @@ addLayer("b", {
             return player[this.layer].points.add(1).pow(0.08)
         },
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+
+    },
+})
+
+addLayer("p", {
+    name: "planet", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "P", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#FF8000",
+    requires: new Decimal(2000), // Can be a function that takes requirement increases into account
+    resource: "planets", // Name of prestige currency
+    baseResource: "points", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    base: 1.6,
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(2)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "p", description: "P: Reset for planets", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+
+    upgrades: {
+
+    11: {
+        title: "Even more...",
+        description: "Multiply your point gain based on planets.",
+        cost: new Decimal(2),
+        effect() {
+            return player[this.layer].points.add(1).pow(2.5)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"}
+        },
+    },
+
+    milestones: {
+        0: {
+            requirementDescription: "4 planets",
+            effectDescription: "+1 Milestone.",
+            done() { return player.p.points.gte(4) },
+        },
+        1: {
+            requirementDescription: "9 planets",
+            effectDescription: "+1 Milestone.",
+            done() { return player.p.points.gte(9) },
         },
 
     },
