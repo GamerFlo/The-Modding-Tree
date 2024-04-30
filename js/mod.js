@@ -13,14 +13,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2",
-	name: "Big Bang",
+	num: "0.3",
+	name: "Annhilate",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.2</h3><br>
+	<h3>v0.2: Big Bang</h3><br>
 		- Added the first two rows (3 Layers).<br>
-		- Achievements will be added soon!.`
+		- Achievements will be added soon!
+	<h3>v0.3: Annhilate</h3><br>
+	    - Added a new layer: dark matter.<br>
+		- Game ends at 1e70 space points.`
 
 let winText = `Congratulations! You have beaten the game that includes everything. For now...`
 
