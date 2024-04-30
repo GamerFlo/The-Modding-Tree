@@ -20,7 +20,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>
 	<h3>v0.2: Big Bang</h3><br>
 		- Added the first two rows (3 Layers).<br>
-		- Achievements will be added soon!
+		- Achievements will be added soon!<br>
 	<h3>v0.3: Annhilate</h3><br>
 	    - Added a new layer: dark matter.<br>
 		- Game ends at 1e70 space points.`
