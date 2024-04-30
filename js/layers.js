@@ -280,3 +280,99 @@ addLayer("d", {
     },
 
 })
+
+addLayer("a", {
+    name: "Achievements",
+    symbol: "A",
+    startData() { return {
+        unlocked: true
+    }},
+    color: "#FFFF00",
+    row: "side",
+    layerShown(){return true},
+
+    achievements: {
+        11: {
+            name: "The Beginning",
+            tooltip: "Get 1 Oxygen.",
+            done() { return player.o.points.gte(1) },
+        },
+        12: {
+            name: "Point Hoarder",
+            tooltip: "Get 40 Points.",
+            done() { return player.points.gte(40) },
+        },
+        13: {
+            name: "Oxygen Tank",
+            tooltip: "Get 25 Oxygen.",
+            done() { return player.o.points.gte(25) },
+        },
+        14: {
+            name: "Some more?",
+            tooltip: "Get 1,000 points.",
+            done() { return player.points.gte(1000) },
+        },
+        21: {
+            name: "Boost me!",
+            tooltip: "Get 1 Booster.",
+            done() { return player.b.points.gte(1) },
+        },
+        22: {
+            name: "Planetary",
+            tooltip: "Get 1 Planet.",
+            done() { return player.p.points.gte(1) },
+        },
+        23: {
+            name: "More of this",
+            tooltip: "Get 1 Million Points.",
+            done() { return player.points.gte(1e6) },
+        },
+        24: {
+            name: "More of that",
+            tooltip: "Get 50,000 Oxygen.",
+            done() { return player.o.points.gte(50000) },
+        },
+        31: {
+            name: "Even more Boosters",
+            tooltip: "Get 10,000 Boosters.",
+            done() { return player.b.points.gte(10000) },
+        },
+        32: {
+            name: "Planetary+",
+            tooltip: "Get 6 Planets.",
+            done() { return player.p.points.gte(6) },
+        },
+        33: {
+            name: "Let's go!",
+            tooltip: "Get 1e10 Points.",
+            done() { return player.points.gte(1e10) },
+        },
+        34: {
+            name: "Boosters! BOOSTERS!!!",
+            tooltip: "Get 100 Million Boosters.",
+            done() { return player.b.points.gte(1e8) },
+        },
+        41: {
+            name: "The Beginning... again?",
+            tooltip: "Get 1 Dark Matter.",
+            done() { return player.d.points.gte(1) },
+        },
+        42: {
+            name: "ERROR 606: Planet not found",
+            tooltip: "Get 12 Planets.",
+            done() { return player.p.points.gte(12) },
+        },
+        43: {
+            name: "More!!",
+            tooltip: "Get 2 Dark Matter.",
+            done() { return player.d.points.gte(2) },
+        },
+        44: {
+            name: "The End. For now!",
+            tooltip: "Get 1e70 Points.",
+            done() { return player.points.gte(1e70) },
+        }
+    
+    },
+
+})
