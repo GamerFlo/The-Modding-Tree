@@ -495,7 +495,7 @@ addLayer("q", {
             description: "Raise point gain to a power based on quarks.",
             cost: new Decimal(1),
             effect() {
-                return player[this.layer].points.add(1).times(0.04)
+                return player[this.layer].points.times(0.04).add(1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"th power"}
         }
