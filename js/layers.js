@@ -205,7 +205,7 @@ addLayer("p", {
     milestones: {
         0: {
             requirementDescription: "4 planets",
-            effectDescription: "+1 Milestone.",
+            effectDescription: "Nothing. Just a test for milestones...",
             done() { return player.p.points.gte(4) },
         },
         1: {
