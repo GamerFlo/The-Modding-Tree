@@ -235,6 +235,7 @@ addLayer("d", {
     exponent: 1.1,
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (inChallenge('q', 12)) mult = mult.times(0)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
