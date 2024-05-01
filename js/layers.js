@@ -493,7 +493,7 @@ addLayer("q", {
         11: {
             title: "Separation",
             description: "Raise point gain to a power based on quarks.",
-            cost: new Decimal(1),
+            cost: new Decimal(0),
             effect() {
                 return player[this.layer].points.times(0.04).add(1)
             },
