@@ -22,7 +22,10 @@ addLayer("o", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        exp = new Decimal(1)
+        if (inChallenge('m', 12)) exp = exp.times(0.6)
+        if (hasChallenge('m', 12)) exp = exp.times(1.2)
+        return exp
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
@@ -101,6 +104,8 @@ addLayer("b", {
         mult = new Decimal(1)
         if (hasUpgrade('b', 13)) mult = mult.times(upgradeEffect('b', 13))
         if (hasUpgrade('d', 21)) mult = mult.times(upgradeEffect('d', 21))
+        if (inChallenge('m', 11)) mult = mult.times(0)
+        if (hasChallenge('m', 11)) mult = mult.times(6)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -169,6 +174,7 @@ addLayer("p", {
     exponent: 2,
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (inChallenge('m', 13)) mult = mult.times(0)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -373,6 +379,62 @@ addLayer("a", {
             done() { return player.points.gte(1e70) },
         }
     
+    },
+
+})
+
+addLayer("m", {
+    name: "matter", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "M", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#0050FF",
+    requires: new Decimal(1e40), // Can be a function that takes requirement increases into account
+    resource: "matter", // Name of prestige currency
+    baseResource: "boosters", // Name of resource prestige is based on
+    baseAmount() {return player.b.points}, // Get the current amount of baseResource
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    base: 2,
+    exponent: 1.4,
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 2, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "m", description: "M: Reset for matter", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    branches: ["b"],
+
+    challenges: {
+        11: {
+            name: "Unboosted",
+            challengeDescription: "You can not gain boosters.",
+            goalDescription: "Reach 1e34 points",
+            rewardDescription: "Booster gain x6",
+            canComplete: function() {return player.points.gte(1e34)},
+        },
+        12: {
+            name: "OxyLow",
+            challengeDescription: "Oxygen gain is raised ^0.6.",
+            goalDescription: "Reach 1e19 points",
+            rewardDescription: "Oxygen gain ^1.2",
+            canComplete: function() {return player.points.gte(1e19)},
+        },
+        13: {
+            name: "Planetary Lock",
+            challengeDescription: "You can not gain planets.",
+            goalDescription: "Reach 1e41 points",
+            rewardDescription: "Point gain x20",
+            canComplete: function() {return player.points.gte(1e41)},
+        },
     },
 
 })
