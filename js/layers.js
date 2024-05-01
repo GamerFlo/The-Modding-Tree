@@ -380,7 +380,37 @@ addLayer("a", {
             name: "The End. For now!",
             tooltip: "Get 1e70 Points.",
             done() { return player.points.gte(1e70) },
-        }
+        },
+        51: {
+            name: "Does that MATTER?",
+            tooltip: "Get 1 Matter.",
+            done() { return player.m.points.gte(1) },
+        },
+        52: {
+            name: "break_eternity",
+            tooltip: "Get [new Decimal (1e308)] points.",
+            done() { return player.points.gte(1e308) },
+        },
+        53: {
+            name: "Wasn't that impossible earlier?",
+            tooltip: "Get 3 Dark Matter.",
+            done() { return player.d.points.gte(3) },
+        },
+        54: {
+            name: "Quarks and Quirks",
+            tooltip: "Get 1 Quark.",
+            done() { return player.q.points.gte(1) },
+        },
+        61: {
+            name: "Dark Side of the Moon",
+            tooltip: "Get 4 Dark Matter.",
+            done() { return player.d.points.gte(4) },
+        },
+        62: {
+            name: "Quarky World",
+            tooltip: "Get 3 Quarks.",
+            done() { return player.q.points.gte(3) },
+        },
     
     },
 
@@ -484,9 +514,9 @@ addLayer("q", {
         12: {
             name: "DM me? Nope!",
             challengeDescription: "You can not gain dark matter.",
-            goalDescription: "Reach 1e840 points",
+            goalDescription: "Reach 1e308 points",
             rewardDescription: "Raises the gain exponent of boosters from ^2 to ^3",
-            canComplete: function() {return player.points.gte(1e840)},
+            canComplete: function() {return player.points.gte(1e308)},
         },
     },
 
