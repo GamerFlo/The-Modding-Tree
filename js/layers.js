@@ -417,9 +417,9 @@ addLayer("m", {
         11: {
             name: "Unboosted",
             challengeDescription: "You can not gain boosters.",
-            goalDescription: "Reach 1e34 points",
+            goalDescription: "Reach 1e27 points",
             rewardDescription: "Booster gain x6",
-            canComplete: function() {return player.points.gte(1e34)},
+            canComplete: function() {return player.points.gte(1e27)},
         },
         12: {
             name: "OxyLow",
