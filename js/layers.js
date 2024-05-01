@@ -109,7 +109,9 @@ addLayer("b", {
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(2)
+        exp = new Decimal(2)
+        if (hasChallenge('q', 12)) exp = exp.add(1)
+        return exp
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
@@ -435,6 +437,68 @@ addLayer("m", {
             rewardDescription: "Point gain x20",
             canComplete: function() {return player.points.gte(1e41)},
         },
+    },
+
+})
+
+addLayer("q", {
+    name: "quarks", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "Q", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+    }},
+    color: "#FF00A0",
+    requires: new Decimal(1e1100), // Can be a function that takes requirement increases into account
+    resource: "quarks", // Name of prestige currency
+    baseResource: "points", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    base: 1e400,
+    exponent: 2,
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 3, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "q", description: "Q: Reset for quarks", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    branches: ["m", "d"],
+
+    challenges: {
+        11: {
+            name: "Trap",
+            challengeDescription: "You are trapped in all three matter challenges at once.",
+            goalDescription: "Reach 1e17 points",
+            rewardDescription: "Point gain ^1.12",
+            canComplete: function() {return player.points.gte(1e17)},
+            countsAs: (('m', 13), ('m', 12), ('m', 11))
+        },
+        12: {
+            name: "DM me? Nope!",
+            challengeDescription: "You can not gain dark matter.",
+            goalDescription: "Reach 1e840 points",
+            rewardDescription: "Raises the gain exponent of boosters from ^2 to ^3",
+            canComplete: function() {return player.points.gte(1e840)},
+        },
+    },
+
+    upgrades: {
+        11: {
+            title: "Separation",
+            description: "Raise point gain to a power based on quarks.",
+            cost: new Decimal(1),
+            effect() {
+                return player[this.layer].points.add(1).times(0.04)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"th power"}
+        }
     },
 
 })
