@@ -172,9 +172,13 @@ addLayer("p", {
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    canBuyMax(): true,
     base: 2,
     exponent: 2,
+    canBuyMax() {
+        if (hasMilestone('p', 0)) return true
+        else
+        return false
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (inChallenge('m', 13)) mult = mult.times(0)
@@ -206,7 +210,7 @@ addLayer("p", {
     milestones: {
         0: {
             requirementDescription: "4 planets",
-            effectDescription: "Nothing. Just a test for milestones...",
+            effectDescription: "You can buy max on ALL layers.",
             done() { return player.p.points.gte(4) },
         },
         1: {
@@ -234,6 +238,11 @@ addLayer("d", {
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     base: 2,
     exponent: 1.1,
+    canBuyMax() {
+        if (hasMilestone('p', 0)) return true
+        else
+        return false
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (inChallenge('q', 12)) mult = mult.times(0)
@@ -433,6 +442,11 @@ addLayer("m", {
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     base: 2,
     exponent: 2,
+    canBuyMax() {
+        if (hasMilestone('p', 0)) return true
+        else
+        return false
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -489,6 +503,11 @@ addLayer("q", {
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     base: new Decimal("e400"),
     exponent: 2,
+    canBuyMax() {
+        if (hasMilestone('p', 0)) return true
+        else
+        return false
+    },
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         return mult
@@ -515,9 +534,9 @@ addLayer("q", {
         12: {
             name: "DM me? Nope!",
             challengeDescription: "You can not gain dark matter.",
-            goalDescription: "Reach 1e308 points",
+            goalDescription: "Reach 1e840 points",
             rewardDescription: "Raises the gain exponent of boosters from ^2 to ^3",
-            canComplete: function() {return player.points.gte(1e308)},
+            canComplete: function() {return player.points.gte(new Decimal("e840"))},
         },
     },
 
