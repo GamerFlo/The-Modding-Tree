@@ -478,7 +478,7 @@ addLayer("q", {
             goalDescription: "Reach 1e17 points",
             rewardDescription: "Point gain ^1.12",
             canComplete: function() {return player.points.gte(1e17)},
-            countsAs: (('m', 13), ('m', 12), ('m', 11))
+            countsAs: [('m', 13), ('m', 12), ('m', 11)]
         },
         12: {
             name: "DM me? Nope!",
