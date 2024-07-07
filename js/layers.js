@@ -78,7 +78,7 @@ addLayer("ii", {
     requires: new Decimal(50), // Can be a function that takes requirement increases into account
     resource: "tier 2 points", // Name of prestige currency
     baseResource: "tier 1 points", // Name of resource prestige is based on
-    baseAmount() {return player.points}, // Get the current amount of baseResource
+    baseAmount() {return player.i.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.75, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
