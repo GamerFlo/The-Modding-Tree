@@ -44,6 +44,8 @@ function getPointGen() {
 	if (hasChallenge('i', 11)) gain = gain.add(1)
 	if (hasChallenge('i', 12)) gain = gain.times(challengeEffect('i', 12))
 	if (inChallenge('i', 13)) gain = gain.pow(0.5)
+	if (inChallenge('ii', 12)) gain = gain.pow(0.5)
+	if (hasChallenge('ii', 12)) gain = gain.pow(2)
 	return gain
 }
 
