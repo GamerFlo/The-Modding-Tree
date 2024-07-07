@@ -48,7 +48,7 @@ addLayer("i", {
             rewardDescription: "Multiply point gain based on tier 1 points.",
             canComplete: function() {return player.points.gte(20)},
             rewardEffect() {
-                return player[this.layer].points.add(1).pow(0.4)
+                return player[this.layer].points.add(1).pow(0.5)
             },
             rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x" },
         },
@@ -59,7 +59,7 @@ addLayer("i", {
             rewardDescription: "Multiply tier 1 point gain based on points.",
             canComplete: function() {return player.points.gte(100)},
             rewardEffect() {
-                return player.points.add(1).pow(0.12)
+                return player.points.add(1).pow(0.15)
             },
             rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x" },
         },
