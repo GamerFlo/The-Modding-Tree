@@ -118,7 +118,7 @@ addLayer("ii", {
             rewardDescription: "Multiply tier 1 point gain based on tier 2 points.",
             canComplete: function() {return player.points.gte(100000)},
             rewardEffect() {
-                return player.ii.points.add(1).pow(0.4)
+                return player.ii.points.add(1).pow(0.6)
             },
             rewardDisplay() { return format(challengeEffect(this.layer, this.id))+"x" },
         },
