@@ -16,8 +16,8 @@ addLayer("i", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasChallenge('i', 13)) mult = mult.times(challengeEffect('i', 13))
-        if (inChallenge('ii', 11)) mult = 1
-        if (inChallenge('ii', 12)) mult = 1
+        if (inChallenge('ii', 11)) mult = new Decimal(1)
+        if (inChallenge('ii', 12)) mult = new Decimal(1)
         if (hasChallenge('ii', 11)) mult = mult.times(10)
         if (hasChallenge('ii', 13)) mult = mult.times(challengeEffect('ii', 13))
         return mult
