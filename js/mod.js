@@ -20,7 +20,7 @@ let VERSION = {
 let changelog = `<h1>Changelog:</h1><br>`
 
 
-let winText = `Congratulations! You have beaten the gameg. For now...`
+let winText = `Congratulations! You have beaten the game. For now...`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
