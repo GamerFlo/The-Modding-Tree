@@ -18,11 +18,12 @@ addLayer("w", {
         if (hasUpgrade('w', 13)) mult = mult.times(upgradeEffect('w', 13))
         if (hasUpgrade('w', 23)) mult = mult.times(upgradeEffect('w', 23))
         if (hasUpgrade('b', 11)) mult = mult.times(upgradeEffect('b', 11))
+        if (inChallenge('b', 12)) mult = mult.times(0)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
-
+        if (hasChallenge('b', 12)) exp = exp.add(0.1)
         return exp
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
@@ -121,12 +122,28 @@ addLayer("b", {
             },
             12: {
                 title: "Better Soil",
-                description: "Make boosters boost point gain.",
+                description: "Make boosters boost point gain. Also +1 point/sec.",
                 cost: new Decimal(20),
                 effect() {
                     return player[this.layer].points.add(1).pow(0.8)
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
             },
+    },
+    challenges: {
+        11: {
+            name: "Rooted Waters",
+            challengeDescription: "Points are square rooted.",
+            canComplete: function() {return player.w.points.gte(100)},
+            goalDescription: "100 Water points",
+            rewardDescription: "Point production raised ^1.1.",
+        },
+        12: {
+            name: "The Drought",
+            challengeDescription: "You can't gain water points. (Recommended at 1,000 boosters.)",
+            canComplete: function() {return player.points.gte(100000)},
+            goalDescription: "100,000 points",
+            rewardDescription: "Water point production raised ^1.1.",
+        }
     },
 })
