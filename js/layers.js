@@ -15,7 +15,7 @@ addLayer("w", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        
+        if (hasUpgrade('w', 13)) mult = mult.times(upgradeEffect('w', 13))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -28,4 +28,29 @@ addLayer("w", {
         {key: "W", description: "W: Reset for water points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    upgrades: {
+        11: {
+            title: "Small Bubble",
+            description: "Generates 1 point/sec.",
+            cost: new Decimal(1),
+        },
+        12: {
+            title: "Small Wave",
+            description: "Water points boost point gain at a reduced rate.",
+            cost: new Decimal(3),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.4)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        13: {
+            title: "Small Fish",
+            description: "Points boost water point gain.",
+            cost: new Decimal(10),
+            effect() {
+                return player.points.add(1).pow(0.17)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+    },
 })
