@@ -104,7 +104,7 @@ addLayer("b", {
 
         return exp
     },
-    row: 0, // Row the layer is in on the tree (0 is the first row)
+    row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
         {key: "b", description: "B: Reset for boosters", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
