@@ -19,6 +19,7 @@ addLayer("w", {
         if (hasUpgrade('w', 23)) mult = mult.times(upgradeEffect('w', 23))
         if (hasUpgrade('b', 11)) mult = mult.times(upgradeEffect('b', 11))
         if (inChallenge('b', 12)) mult = mult.times(0)
+        if (hasUpgrade('s', 11)) mult = mult.times(10)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -180,7 +181,7 @@ addLayer("s", {
     upgrades: {
             11: {
                 title: "Powerup",
-                description: "Raise point gain to a power based on seaweed.",
+                description: "Raise point gain to a power based on seaweed. Also x10 water point gain for a better early game.",
                 cost: new Decimal(1),
                 effect() {
                     return player[this.layer].points.add(2).pow(0.2)
