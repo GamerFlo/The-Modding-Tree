@@ -125,7 +125,7 @@ addLayer("b", {
                 description: "Make boosters boost point gain. Also +1 point/sec.",
                 cost: new Decimal(20),
                 effect() {
-                    return player[this.layer].points.add(1).pow(0.8)
+                    return player[this.layer].points.add(1).pow(0.6)
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
             },
