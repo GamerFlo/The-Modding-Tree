@@ -185,7 +185,7 @@ addLayer("s", {
                 description: "Raise point gain to a power based on seaweed. Also x10 water point gain for a better early game.",
                 cost: new Decimal(1),
                 effect() {
-                    return player[this.layer].points.add(2).pow(0.2)
+                    return player[this.layer].points.add(2).pow(0.3)
                 },
                 effectDisplay() { return "^"+format(upgradeEffect(this.layer, this.id))},
             },
