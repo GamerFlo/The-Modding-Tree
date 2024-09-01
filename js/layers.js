@@ -17,6 +17,7 @@ addLayer("w", {
         mult = new Decimal(1)
         if (hasUpgrade('w', 13)) mult = mult.times(upgradeEffect('w', 13))
         if (hasUpgrade('w', 23)) mult = mult.times(upgradeEffect('w', 23))
+        if (hasUpgrade('b', 11)) mult = mult.times(upgradeEffect('b', 11))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -76,5 +77,56 @@ addLayer("w", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
+    },
+})
+addLayer("b", {
+    name: "boosters", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "B", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#FF8000",
+    requires: new Decimal(250), // Can be a function that takes requirement increases into account
+    resource: "boosters", // Name of prestige currency
+    baseResource: "water points", // Name of resource prestige is based on
+    baseAmount() {return player.w.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.8, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        exp = new Decimal(1)
+
+        return exp
+    },
+    row: 0, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "b", description: "B: Reset for boosters", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    upgrades: {
+            11: {
+                title: "Fish Food",
+                description: "Makes your fish stronger, increasing water point gain based on boosters.",
+                cost: new Decimal(3),
+                effect() {
+                    return player[this.layer].points.add(1).pow(0.2)
+                },
+                effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+            },
+            12: {
+                title: "Better Soil",
+                description: "Make boosters boost point gain.",
+                cost: new Decimal(20),
+                effect() {
+                    return player.points.add(1).pow(0.8)
+                },
+                effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+            },
     },
 })
