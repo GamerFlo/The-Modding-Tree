@@ -1,6 +1,6 @@
 let modInfo = {
-	name: "The Tier Tree",
-	id: "mytiertreemod",
+	name: "The Water Tree",
+	id: "mywatertreemod",
 	author: "GamerFlo",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
@@ -14,7 +14,7 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.1",
-	name: "Tier up!",
+	name: "Bubbles and Waves",
 }
 
 let changelog = `<h1>Changelog:</h1><br>`
@@ -40,12 +40,8 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(0)
-	if (hasChallenge('i', 11)) gain = gain.add(1)
-	if (hasChallenge('i', 12)) gain = gain.times(challengeEffect('i', 12))
-	if (inChallenge('i', 13)) gain = gain.pow(0.5)
-	if (inChallenge('ii', 12)) gain = gain.pow(0.5)
-	if (hasChallenge('ii', 12)) gain = gain.pow(2)
+	let gain = new Decimal(1)
+	
 	return gain
 }
 
@@ -59,7 +55,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e7000"))
+	return player.points.gte(new Decimal("e7000000"))
 }
 
 
