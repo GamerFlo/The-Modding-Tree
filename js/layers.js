@@ -16,6 +16,7 @@ addLayer("w", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('w', 13)) mult = mult.times(upgradeEffect('w', 13))
+        if (hasUpgrade('w', 23)) mult = mult.times(upgradeEffect('w', 23))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -49,6 +50,29 @@ addLayer("w", {
             cost: new Decimal(10),
             effect() {
                 return player.points.add(1).pow(0.17)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        21: {
+            title: "Big Bubble",
+            description: "Making it bigger won't do anything...",
+            cost: new Decimal(20),
+        },
+        22: {
+            title: "Big Wave",
+            description: "Water points boost point gain even more.",
+            cost: new Decimal(35),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.3)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
+        },
+        23: {
+            title: "Big Fish",
+            description: "Points boost water point gain even more.",
+            cost: new Decimal(100),
+            effect() {
+                return player.points.add(1).pow(0.13)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x"},
         },
