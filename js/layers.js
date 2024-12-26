@@ -73,7 +73,7 @@ addLayer("m", {
             },
         }
     }
-)
+),
 addLayer("d", {
     name: "discovery", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "D", // This appears on the layer's node. Default is the id with the first letter capitalized
