@@ -1,6 +1,6 @@
 let modInfo = {
-	name: "The Water Tree",
-	id: "mywatertreemod",
+	name: "The Unscaled Tree",
+	id: "myunscaledtreemod",
 	author: "GamerFlo",
 	pointsName: "points",
 	modFiles: ["layers.js", "tree.js"],
@@ -14,7 +14,7 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.1",
-	name: "Bubbles and Waves",
+	name: "No Cost Scaling",
 }
 
 let changelog = `<h1>Changelog:</h1><br>`
@@ -41,15 +41,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
-	if (hasUpgrade('b', 12)) gain = gain.add(1)
-	if (hasUpgrade('w', 11)) gain = gain.add(1)
-	if (hasUpgrade('w', 12)) gain = gain.times(upgradeEffect('w', 12))	
-	if (hasUpgrade('w', 21)) gain = gain.add(1)
-	if (hasUpgrade('w', 22)) gain = gain.times(upgradeEffect('w', 22))
-	if (hasUpgrade('b', 12)) gain = gain.times(upgradeEffect('b', 12))
-	if (inChallenge('b', 11)) gain = gain.pow(0.5)
-	if (hasChallenge('b', 11)) gain = gain.pow(1.1)
-	if (hasUpgrade('s', 11)) gain = gain.pow(upgradeEffect('s', 11))
+	gain = gain.add(buyableEffect('m', 11))
 	return gain
 }
 
@@ -63,7 +55,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e7000000"))
+	return player.points.gte(new Decimal("e1000000000000000000000"))
 }
 
 
