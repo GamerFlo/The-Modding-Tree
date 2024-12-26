@@ -53,7 +53,7 @@ addLayer("m", {
                 player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             },
             effect() {
-                return getBuyableAmount(this.layer, this.id)
+                return getBuyableAmount(this.layer, this.id).add(1)
             },
             effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             }
