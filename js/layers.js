@@ -43,7 +43,7 @@ addLayer("m", {
             },
             effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             }
-        11: {
+        12: {
             cost() { return new Decimal("e10") },
             title: "Second Dimension",
             display() { return "Increases the muliplier to first dimensions by 1 per second." },
