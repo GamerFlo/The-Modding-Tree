@@ -41,7 +41,7 @@ addLayer("m", {
             effect() {
                 return getBuyableAmount(this.layer, this.id)
             },
-            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s"}
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             }
         }
     }
