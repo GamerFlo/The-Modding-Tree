@@ -43,6 +43,20 @@ addLayer("m", {
             },
             effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             }
+        11: {
+            cost() { return new Decimal("e10") },
+            title: "Second Dimension",
+            display() { return "Increases the muliplier to first dimensions by 1 per second." },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div("e10")))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            },
+            effect() {
+                return getBuyableAmount(this.layer, this.id)
+            },
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
+            }
         }
     }
 )
