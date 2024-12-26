@@ -46,14 +46,14 @@ addLayer("m", {
         12: {
             cost() { return new Decimal("e9") },
             title: "Second Dimension",
-            display() { return "Increases the multiplier to first dimensions by 1." },
+            display() { return "Increases the multiplier to first dimensions by 1, and raises that multiplier to the power of 0.1." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("e9"))))
                 player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             },
             effect() {
-                return getBuyableAmount(this.layer, this.id).add(1)
+                return getBuyableAmount(this.layer, this.id).add(1).pow(0.1)
             },
             effectDisplay() { return format(buyableEffect(this.layer, this.id)) }
             },
