@@ -58,12 +58,12 @@ addLayer("m", {
             effectDisplay() { return format(buyableEffect(this.layer, this.id)) }
             },
         13: {
-            cost() { return new Decimal("e10000000000") },
+            cost() { return new Decimal("ee10") },
             title: "Third Dimension",
             display() { return "Increases the exponent to first dimensions by 1, and raises that exponent to the power of 0.1." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
-                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("e10000000000"))))
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("ee10"))))
                 layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             },
             effect() {
