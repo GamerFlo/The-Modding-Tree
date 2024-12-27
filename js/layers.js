@@ -84,6 +84,26 @@ addLayer("m", {
                 layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             }
         },
+        upgrades: {
+            11: {
+            title: "Advanced Science",
+            description: "Squares the boost from the first DP upgrade.",
+            cost: new Decimal("e19"),
+            effect() {
+                return player.d.points.add(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+            },
+            12: {
+            title: "Ultimate Science",
+            description: "Cubes the boost from the first DP upgrade.",
+            cost: new Decimal("ee11"),
+            effect() {
+                return player.d.points.add(1)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+            },
+        },
         passiveGeneration() {
             if (hasUpgrade('d', 14)) return 1
         }
