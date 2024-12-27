@@ -46,31 +46,35 @@ addLayer("m", {
         12: {
             cost() { return new Decimal("e9") },
             title: "Second Dimension",
-            display() { return "Increases the multiplier to first dimensions by 1, and raises that multiplier to the power of 0.1." },
+            display() { return "Produces 1e9 first dimensions per second." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("e9"))))
                 player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             },
             effect() {
-                return getBuyableAmount(this.layer, this.id).add(1).pow(0.1)
+                return getBuyableAmount(this.layer, this.id).times(new Decimal("e9"))
             },
-            effectDisplay() { return format(buyableEffect(this.layer, this.id)) }
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             },
         13: {
             cost() { return new Decimal("ee10") },
             title: "Third Dimension",
-            display() { return "Increases the exponent to first dimensions by 1, and raises that exponent to the power of 0.1." },
+            display() { return "Produces ee10 second dimensions per second." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("ee10"))))
                 layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             },
             effect() {
-                return getBuyableAmount(this.layer, this.id).add(1).pow(0.1)
+                return getBuyableAmount(this.layer, this.id).times(new Decimal("ee10"))
             },
-            effectDisplay() { return format(buyableEffect(this.layer, this.id)) }
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
             },
+        },
+        automate() {
+            addBuyables('m', 11, buyableEffect('m', 12))
+            addBuyables('m', 12, buyableEffect('m', 13))
         }
     }
 ),
@@ -90,8 +94,9 @@ addLayer("d", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
-        mult = new Decimal(1)
-
+        mult = new Decimal(0)
+        mult = mult.add(log10(player.m.points))
+        if (hasUpgrade('d', 12)) mult = mult.times(upgradeEffect('d', 12))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -104,6 +109,25 @@ addLayer("d", {
         {key: "d", description: "D: Gain discovery points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    
+    upgrades: {
+        11: {
+            title: "Science",
+            description: "Makes DP boost point gain with a small reduction.",
+            cost: new Decimal(1),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.97)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+        },
+        12: {
+            title: "Great Discovery",
+            description: "Makes DP boost itself.",
+            cost: new Decimal(1000000000),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.03)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+        }
+    }
     }
 )
