@@ -15,7 +15,7 @@ addLayer("m", {
     exponent: 1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(0.1)
-
+        if (hasUpgrade('d', 14)) mult = mult.times(upgradeEffect('d', 14))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -75,6 +75,9 @@ addLayer("m", {
         automate() {
             addBuyables('m', 11, buyableEffect('m', 12))
             addBuyables('m', 12, buyableEffect('m', 13))
+        },
+        passiveGeneration() {
+            if (hasUpgrade('d', 14)) return 1
         }
     }
 ),
@@ -137,7 +140,16 @@ addLayer("d", {
                 return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
-        }
+        },
+        14: {
+            title: "The Automaton",
+            description: "Automatically gain matter and multiply its gain based on DP.",
+            cost: new Decimal("e200"),
+            effect() {
+                return player[this.layer].points.add(1).pow(0.005)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+        },
     },
     buyables: {
         11: {
