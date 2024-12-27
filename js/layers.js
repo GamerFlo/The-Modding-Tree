@@ -127,7 +127,7 @@ addLayer("d", {
             description: "Makes DP boost point gain with a small reduction.",
             cost: new Decimal(0),
             effect() {
-                return player[this.layer].points.add(1).pow(0.97)
+                return player[this.layer].points.add(1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
         },
@@ -136,7 +136,7 @@ addLayer("d", {
             description: "Makes DP boost itself.",
             cost: new Decimal(1000000000),
             effect() {
-                return player[this.layer].points.add(1).pow(0.03)
+                return player[this.layer].points.add(1).pow(0.06)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
         },
