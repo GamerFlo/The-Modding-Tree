@@ -181,7 +181,7 @@ addLayer("d", {
         15: {
             title: "Dimensional Discovery",
             description: "Automatically buy dimensions.",
-            cost: new Decimal("e40"),
+            cost: new Decimal("e4"),
         },
     },
     buyables: {
