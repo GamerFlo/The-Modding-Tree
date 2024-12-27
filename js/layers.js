@@ -132,7 +132,7 @@ addLayer("d", {
     },
     buyables: {
         11: {
-            cost(x) { return new Decimal(5000).pow(x) },
+            cost(x) { return new Decimal(5000).pow(x.add(1)) },
             title: "DP Booster",
             display() { return "Raises point gain to the power of 4." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
