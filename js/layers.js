@@ -91,8 +91,9 @@ addLayer("d", {
     resource: "discovery points", // Name of prestige currency
     baseResource: "matter", // Name of resource prestige is based on
     baseAmount() {return player.m.points}, // Get the current amount of baseResource
-    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0, // Prestige currency exponent
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    base: 10,
+    exponent: 1, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('d', 12)) mult = mult.times(upgradeEffect('d', 12))
@@ -108,6 +109,7 @@ addLayer("d", {
         {key: "d", description: "D: Gain discovery points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
+    canBuyMax(){return true},
     upgrades: {
         11: {
             title: "Science",
