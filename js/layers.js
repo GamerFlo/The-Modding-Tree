@@ -128,6 +128,15 @@ addLayer("d", {
                 return player[this.layer].points.add(1).pow(0.03)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+        },
+        13: {
+            title: "The Lab",
+            description: "Multiply DP gain by ln(DP).",
+            cost: new Decimal("e100"),
+            effect() {
+                return new Decimal(ln(player[this.layer].points))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
         }
     },
     buyables: {
