@@ -112,7 +112,7 @@ addLayer("d", {
         11: {
             title: "Science",
             description: "Makes DP boost point gain with a small reduction.",
-            cost: new Decimal(1),
+            cost: new Decimal(0),
             effect() {
                 return player[this.layer].points.add(1).pow(0.97)
             },
