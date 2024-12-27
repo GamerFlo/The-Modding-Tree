@@ -32,7 +32,7 @@ addLayer("m", {
         11: {
             cost() { return new Decimal(1) },
             title: "First Dimension",
-            display() { return "Produces 1 point per second." },
+            display() { return "Produces 1 point per second.<br>Cost: 1 matter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points))
@@ -46,7 +46,7 @@ addLayer("m", {
         12: {
             cost() { return new Decimal("e9") },
             title: "Second Dimension",
-            display() { return "Produces 1e9 first dimensions per second." },
+            display() { return "Produces 1e9 first dimensions per second.<br>Cost: 1e9 matter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("e9"))))
@@ -60,7 +60,7 @@ addLayer("m", {
         13: {
             cost() { return new Decimal("ee10") },
             title: "Third Dimension",
-            display() { return "Produces ee10 second dimensions per second." },
+            display() { return "Produces ee10 second dimensions per second.<br>Cost: ee10 matter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
                 setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("ee10"))))
