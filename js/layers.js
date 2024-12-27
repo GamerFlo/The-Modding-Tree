@@ -304,15 +304,6 @@ addLayer("a", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"th power" }
             },
-            12: {
-            title: "Anti-Science",
-            description: "Increase DP gain based on antimatter.",
-            cost: new Decimal(1),
-            effect() {
-                return new Decimal(2).add(player[this.layer].points).pow(0.3)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
-            },
         },
     }
 )
