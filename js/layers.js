@@ -131,10 +131,10 @@ addLayer("d", {
         },
         13: {
             title: "The Lab",
-            description: "Multiply DP gain by ln(DP).",
+            description: "Multiply antimatter gain based on DP.",
             cost: new Decimal("e100"),
             effect() {
-                return ln(player[this.layer].points)
+                return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
         }
