@@ -309,7 +309,7 @@ addLayer("a", {
             description: "Increase DP gain based on antimatter.",
             cost: new Decimal(1),
             effect() {
-                return new Decimal(1).add(new Decimal(1).add(player[this.layer].points)).pow(0.3)
+                return new Decimal(2).add(player[this.layer].points).pow(0.3)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
             },
