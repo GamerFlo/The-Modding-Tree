@@ -134,7 +134,7 @@ addLayer("d", {
             description: "Multiply DP gain by ln(DP).",
             cost: new Decimal("e100"),
             effect() {
-                return new Decimal(ln(player[this.layer].points))
+                return ln(player[this.layer].points)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
         }
