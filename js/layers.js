@@ -75,6 +75,14 @@ addLayer("m", {
         automate() {
             addBuyables('m', 11, buyableEffect('m', 12))
             addBuyables('m', 12, buyableEffect('m', 13))
+            if (hasUpgrade('d', 15)) {
+                setBuyableAmount('m', 11, getBuyableAmount('m', 11).add(player[this.layer].points.div(3)))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points.div(3))
+                setBuyableAmount('m', 12, getBuyableAmount('m', 12).add(player[this.layer].points.div(new Decimal("2e9"))))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points.div(2))
+                setBuyableAmount('m', 13, getBuyableAmount('m', 13).add(player[this.layer].points.div(new Decimal("ee10"))))
+                layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            }
         },
         passiveGeneration() {
             if (hasUpgrade('d', 14)) return 1
@@ -149,6 +157,11 @@ addLayer("d", {
                 return player[this.layer].points.add(1).pow(0.005)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
+        },
+        15: {
+            title: "Dimensional Discovery",
+            description: "Automatically buy dimensions.",
+            cost: new Decimal("e40"),
         },
     },
     buyables: {
