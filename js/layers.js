@@ -73,8 +73,8 @@ addLayer("m", {
             },
         },
         automate() {
-            addBuyables('m', 11, buyableEffect('m', 12))
-            addBuyables('m', 12, buyableEffect('m', 13))
+            addBuyables('m', 11, buyableEffect('m', 12).times(upgradeEffect('d', 11)))
+            addBuyables('m', 12, buyableEffect('m', 13).times(upgradeEffect('d', 11)))
             if (hasUpgrade('d', 15)) {
                 setBuyableAmount('m', 11, getBuyableAmount('m', 11).add(player[this.layer].points.div(3)))
                 player[this.layer].points = player[this.layer].points.sub(player[this.layer].points.div(3))
@@ -83,26 +83,6 @@ addLayer("m", {
                 setBuyableAmount('m', 13, getBuyableAmount('m', 13).add(player[this.layer].points.div(new Decimal("ee10"))))
                 layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
             }
-        },
-        upgrades: {
-            11: {
-            title: "Advanced Science",
-            description: "Squares the boost from the first DP upgrade.",
-            cost: new Decimal("e19"),
-            effect() {
-                return player.d.points.add(1)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
-            },
-            12: {
-            title: "Ultimate Science",
-            description: "Cubes the boost from the first DP upgrade.",
-            cost: new Decimal("ee11"),
-            effect() {
-                return player.d.points.add(1)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }
-            },
         },
         passiveGeneration() {
             if (hasUpgrade('d', 14)) return 1
@@ -144,7 +124,7 @@ addLayer("d", {
     upgrades: {
         11: {
             title: "Science",
-            description: "Makes DP boost point gain with a small reduction.",
+            description: "Makes DP give a multiplier to all normal dimensions.",
             cost: new Decimal(0),
             effect() {
                 return player[this.layer].points.add(1)
