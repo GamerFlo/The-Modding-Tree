@@ -57,7 +57,7 @@ function addedPlayerData() { return {
 var displayThings = [
 ]
 
-// Determines when the game "ends"
+// Determines when the game "ends". Default is e1,000,000,000
 function isEndgame() {
 	return player.points.gte(new Decimal("eeee10"))
 }
