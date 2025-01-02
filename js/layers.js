@@ -216,13 +216,13 @@ addLayer("a", {
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "m", description: "M: Gain matter", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "a", description: "A: Gain antimatter", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
     buyables: {
         11: {
             cost() { return new Decimal(1) },
-            title: "First Dimension",
+            title: "First Antimatter Dimension",
             display() { return "Produces 0.1 antimatter per second.<br>Cost: 1 antimatter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
@@ -236,7 +236,7 @@ addLayer("a", {
             },
         12: {
             cost() { return new Decimal("e9") },
-            title: "Second Dimension",
+            title: "Second Antimatter Dimension",
             display() { return "Produces 1e8 first dimensions per second.<br>Cost: 1e9 antimatter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
@@ -250,7 +250,7 @@ addLayer("a", {
             },
         13: {
             cost() { return new Decimal("ee10") },
-            title: "Third Dimension",
+            title: "Third Antimatter Dimension",
             display() { return "Produces ee10 / 10 second dimensions per second.<br>Cost: ee10 matter." },
             canAfford() { return player[this.layer].points.gte(this.cost()) },
             buy() {
