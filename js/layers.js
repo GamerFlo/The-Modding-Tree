@@ -201,7 +201,7 @@ addLayer("a", {
     baseResource: "discovery points", // Name of resource prestige is based on
     baseAmount() {return player.d.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    base: 1.1,
+    base: 2,
     exponent: 1, // Prestige currency exponent
     canBuyMax() {return true},
     gainMult() { // Calculate the multiplier for main currency from bonuses
