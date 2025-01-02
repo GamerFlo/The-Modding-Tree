@@ -186,4 +186,95 @@ addLayer("d", {
             },            
         }
     }
+),
+addLayer("a", {
+    name: "antimatter", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "AM", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#FF6090",
+    requires: new Decimal(1000), // Can be a function that takes requirement increases into account
+    resource: "antimatter", // Name of prestige currency
+    baseResource: "discovery points", // Name of resource prestige is based on
+    baseAmount() {return player.d.points}, // Get the current amount of baseResource
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    base: 1.1,
+    exponent: 1, // Prestige currency exponent
+    canBuyMax() {return true},
+    resetsNothing() {return true},
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        if (hasUpgrade('d', 13)) mult = mult.times(upgradeEffect('d', 13))
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        exp = new Decimal(1)
+
+        return exp
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "m", description: "M: Gain matter", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+    buyables: {
+        11: {
+            cost() { return new Decimal(1) },
+            title: "First Dimension",
+            display() { return "Produces 0.1 antimatter per second.<br>Cost: 1 antimatter." },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            },
+            effect() {
+                return getBuyableAmount(this.layer, this.id).div(10)
+            },
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
+            },
+        12: {
+            cost() { return new Decimal("e9") },
+            title: "Second Dimension",
+            display() { return "Produces 1e8 first dimensions per second.<br>Cost: 1e9 antimatter." },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("e9"))))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            },
+            effect() {
+                return getBuyableAmount(this.layer, this.id).times(new Decimal("e8"))
+            },
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
+            },
+        13: {
+            cost() { return new Decimal("ee10") },
+            title: "Third Dimension",
+            display() { return "Produces ee10 / 10 second dimensions per second.<br>Cost: ee10 matter." },
+            canAfford() { return player[this.layer].points.gte(this.cost()) },
+            buy() {
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(player[this.layer].points.div(new Decimal("ee10"))))
+                layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            },
+            effect() {
+                return getBuyableAmount(this.layer, this.id).times(new Decimal("ee10".div(10)))
+            },
+            effectDisplay() { return format(buyableEffect(this.layer, this.id))+"/s" }
+            },
+        },
+        automate() {
+            addBuyables('a', 11, buyableEffect('a', 12))
+            addBuyables('a', 12, buyableEffect('a', 13))
+            if (hasUpgrade('d', 21)) {
+                setBuyableAmount('a', 11, getBuyableAmount('a', 11).add(player[this.layer].points.div(3)))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points.div(3))
+                setBuyableAmount('a', 12, getBuyableAmount('a', 12).add(player[this.layer].points.div(new Decimal("2e9"))))
+                player[this.layer].points = player[this.layer].points.sub(player[this.layer].points.div(2))
+                setBuyableAmount('a', 13, getBuyableAmount('a', 13).add(player[this.layer].points.div(new Decimal("ee10"))))
+                layer[this.layer].points = player[this.layer].points.sub(player[this.layer].points)
+            }
+        },
+    }
 )
