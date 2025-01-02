@@ -204,7 +204,6 @@ addLayer("a", {
     base: 1.1,
     exponent: 1, // Prestige currency exponent
     canBuyMax() {return true},
-    resetsNothing() {return true},
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('d', 13)) mult = mult.times(upgradeEffect('d', 13))
